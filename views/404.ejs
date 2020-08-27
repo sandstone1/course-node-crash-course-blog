@@ -1,0 +1,54 @@
+
+<!--
+    first, paste in the some HTML
+-->
+<html>
+
+    <!--
+        // 3 - let's cut out the <head></head> section below and then import in the header
+        // partial file below
+
+        // and let's save this file and refresh the page and when we refresh the page we see
+        // the header html so everything is working as expected
+
+        // now let's go to the create.ejs file 3 - and replace the <head></head> html with
+        // the code below
+    -->
+    <%- include( './partials/header.ejs' ) %>
+
+    <!--
+    <head>
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            // 1 - and we are coming from the about.ejs file 1 - and we want to update the title
+            // from " <title>Blog Ninja</title> " to " <title>Blog Ninja | 404</title> " and we
+            // do that as shown below and if we go to the 404 page and refresh the page we see our
+            // title is now " Blog Ninja | 404 " so everything is working as expected and now
+            // let's do this for create page so let's go to the create.ejs file 1 -
+        -->
+        <!--
+        <title>Blog Ninja | <%= title %></title>
+    </head>
+    -->
+
+    <body>
+
+       <!--
+            // 2 - replace the nav section with our include function below
+
+            // and let's save this file and refresh the page and when we refresh the page we see
+            // the nav html so everything is working as expected
+
+            // now let's go to the create.ejs file 2 - and replace the <nav></nav> html with
+            // the code below
+        -->
+        <%- include( './partials/nav.ejs' ) %>
+    
+        <div class="not-found content">Oops, page not found :)</div><br>
+        
+        <!-- footer partial -->
+        <%- include( './partials/footer.ejs' ) %>
+
+    </body>
+
+</html>

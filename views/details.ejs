@@ -1,0 +1,132 @@
+
+<!--
+    // 1 -
+    // paste some HTML below
+-->
+<html lang="en">
+
+<%- include( "./partials/header.ejs" ) %>
+
+<body>
+
+    <%- include( "./partials/nav.ejs" ) %>
+
+    <div class="details content">
+
+        <h2><%= blog.title %></h2>
+
+        <div class="details--content">
+            <p><%= blog.body %></p>
+        </div>
+
+        <!--
+            // 1 -
+            // from w3 schools: " The data-* attribute is used to store custom data private to
+            // the page or application. The data-* attribute gives us the ability to embed
+            // custom data attributes on all HTML elements. " 
+        -->
+
+        <!--
+            // 2 -
+            // and we get access to the blog ID below and then store it in a custom data attribute
+            // or " data-doc " and what will happen is we will click on the delete button and then
+            // grab the blog ID and then we will use the fetch API to send a DELETE request to the
+            // server and we will go to the database from the server and delete the blog document
+            // with an ID that matches the ID below
+
+            // and next let's add a little bit of css to our delete button so let's go to the
+            // styles.css file and if we save this file and go to a details page we should see the
+            // delete button at the top right corner of the page and this is what we see so
+            // everything is working as expected which is great
+
+            // now when we click on the button we want to send a delete request to the server and
+            // we will do this by using vanilla JavaScript on the front end and remember the
+            // JavaScript will be running in the browser and not running on the server and to
+            // run the JavaScript let's go to the script tags in 3 - below
+        -->
+        <a class="details--delete" data-doc="<%= blog._id %>"><i class="material-icons">delete</i></a>
+
+    </div>
+
+    <%- include( "./partials/footer.ejs" )  %>
+
+    <!--
+        // 3 -
+        // we will use the fetch API to send a DELETE request to the server but first let's
+        // create the endpoint and remember we want to send a DELETE request to this endpoint
+        // and we do that by using the fetch API and the first argument will be our endpoint
+        // and the second argument will be an options object and in this object we can specify
+        // the type of request we want to send and we do that by specifying the method or
+        // " method : DELETE " and remember fetch() is asychronous so we can attach a then()
+        // method and then once the promise is resolved the then() method will fire a callback
+        // function and we will come back to this later
+        
+        // so now we need to handle this DELETE request on the server so let's go back to
+        // the app.js file 59 -
+    -->
+
+    <!--
+        // 4 -
+        // we are coming from the app.js file 59 - and remember the app.js file 59 - received
+        // the fetch generated DELETE request below and then the server reached out to the database
+        // and the database deleted the correct blog document and then we want to redirect the
+        // user to a new page and to do that the app.js file 59 - sent some information to the
+        // front end so that the front end can redirect the user and the information sent from
+        // the app.js file 59 - is contained in the res.json(); construct or
+        // " res.json( { redirect : '/blogs' } ); " and we can use this information inside the
+        // then() method below and the argument to the then() method will be " response "
+        // and remember the response argument is equal to a JSON object and we need to convert
+        // the JSON object into a JavaScript object and to do that let's use the response.json()
+        // method and remember response.json() is an ansychronous function so we can therefore
+        // tack on another then() method and the argument to this then() method will be our
+        // JavaScript object which we will call " data " and let's log " data " to console to test
+        // this out
+
+        // and let's go to a details page and open the console and then press the delete button
+        // and see what we get back in the console and we get back the following object:
+        // " { redirect : "/blogs" } " which is correct so everything is working as expected
+        // and if we go to the home page we should not see the blog we just deleted and that
+        // is the case so again everything is working as expected and we see that the database
+        // has been updated as well and the deleted blog document is no longer present in the
+        // database
+
+        // so the only left to do is do our redirect on the front end and we do that by replacing
+        // " console.log( data ) " with " window.location.href = data.redirect " and this will
+        // redirect us to the home page and let's try this one more time
+
+        // let's go to our home page and select a new blog posting and then once on the details
+        // page let's press the delete button to delete the blog posting and then we should
+        // get redirected to the home page and then on the home page we should not see the blog
+        // that we just deleted and this is the case so everything is working as expected
+
+        // so now we have handled pretty much everything we need to do and we've made GET requests,
+        // POST requests and DELETE requests and in the next tutorial the net ninja wants to
+        // discuss MVC and the Express router
+    -->
+    <script>
+
+        const deleteBlog = document.querySelector( '.details--delete' );
+
+        deleteBlog.addEventListener( 'click', ( event ) => {
+
+            const endpoint = `/blogs/${ deleteBlog.dataset.doc }`;
+
+            fetch( endpoint, {
+                method : 'DELETE'
+            } )
+            .then( ( response ) => response.json() )
+            .then( ( data ) => window.location.href = data.redirect )
+            .catch( ( error ) => {
+
+                console.log( error );
+
+            } );
+
+        } );
+
+    </script>
+
+
+</body>
+
+</html>

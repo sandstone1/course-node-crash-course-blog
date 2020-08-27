@@ -1,0 +1,98 @@
+
+<!--
+    first, paste in the some HTML
+-->
+<html>
+
+    <!--
+        // 3 - let's cut out the <head></head> section below and then import in the header
+        // partial file below
+
+        // and let's save this file and refresh the page and when we refresh the page we see
+        // the header html so everything is working as expected
+
+        // now let's go to the app.js file 26 -
+    -->
+    <%- include( './partials/header.ejs' ) %>
+
+    <!--
+    <head>
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            // 1 - and we are coming from the 404.ejs file 1 - and we want to update the title
+            // from " <title>Blog Ninja</title> " to
+            // " <title>Blog Ninja | Create a new blog</title> " and we do that as shown below
+            // and if we go to the create page and refresh the page we see our title is now
+            // " Blog Ninja | Create a new blog " so everything is working as expected and let's
+            // go back to the app.js file 23 -
+        -->
+        <!--
+        <title>Blog Ninja | <%= title %></title>
+    </head>
+    -->
+
+    <body>
+
+       <!--
+            // 2 - replace the nav section with our include function below
+
+            // and let's save this file and refresh the page and when we refresh the page we see
+            // the nav html so everything is working as expected
+
+            // now let's go to the app.js file 25 -
+        -->
+        <%- include( './partials/nav.ejs' ) %>
+    
+        <div class="create-blog content">
+
+            <!--
+                // 4 - first we need to add an action attribute to the form element and then give
+                // the action attribute a value of where we want to send the request and we want
+                // send this POST request to the " /blogs " route or URL and remember in our
+                // sample route structure that we outlined previously, the route
+                // " localhost:3000/blogs " represented a POST request or
+                
+                // " ** SAMPLE ROUTE STRUCTURE **
+                // 3 - localhost:3000/blogs    POST"
+        
+                // and remember the form data that is submitted with this POST request will
+                // be used to create a new document in the database
+
+                // next we need to add the method attrubute to the form element or
+                // " method="post" " and then when we click on the submit button we will send the
+                // POST request to the route " /blogs " and we will include all the form data in
+                // this POST request
+                // by attaching the data to the body of the POST request and by doing this we will
+                // be able to access this data on the server; however, we need to add name
+                // attributes to the 2 input fields below and the textarea field below so that the
+                // server can access this data or in other words when were on the server we will
+                // use these name atributes or properties to access the form data
+
+                // now when we click on the submit button the form will send a POST request and
+                // now we need to handle that request on the server so let's go back to our
+                // app.js file 53 -
+            -->
+            
+            <form action="/blogs" method="post">
+
+                <label for= "title">Blog title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for= "snippet">Blog snippet:</label>
+                <input type="text" id="snippet" name="snippet" required>
+
+                <label for= "body">Blog body:</label>
+                <textarea id="body" name="body" required></textarea>
+
+                <button>Submit</button>
+
+            </form>
+        
+        </div>
+
+        <!-- footer partial -->
+        <%- include( './partials/footer.ejs' ) %>
+
+    </body>
+
+</html>

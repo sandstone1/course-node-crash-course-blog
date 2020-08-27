@@ -1,0 +1,214 @@
+
+<!-- 
+    first, paste in the some HTML
+-->
+<html lang="en">
+
+    <!--
+        // 5 - let's cut out the <head></head> section below and place it in the header.ejs
+        // file and then import in the header partial file below
+
+        // and let's save this file and refresh the home page and when we refresh the home
+        // page we see the header html so everything is working as expected
+
+        // now let's go to the about.ejs file 3 - and replace the <head></head> html with
+        // the code below
+    -->
+    <%- include( './partials/header.ejs' ) %>
+
+    <!--
+    <head>
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            // 2 - and we are back from app.js 19 - and we want to update the title from
+            // " <title>Blog Ninja</title> " to " <title>Blog Ninja | Home</title> " and we do
+            // that as follows and if we go to the home page and refresh the page we see our
+            // title is now " Blog Ninja | Home " so everything is working as expected and now
+            // let's do this for each page and to demostrate this let's go back to app.js 20 -
+        -->
+        <!--
+        <title>Blog Ninja | <%= title %></title>
+    </head>
+    -->
+
+    <body>
+
+        <!--
+            // 1 - and we are coming from the app.js file and we want to
+            // create an EJS name variable below and to output the name variable to the screen
+            // we do the following: <p><percentage sign= name perpcentage sign></p> ( remember we
+            // need the equals sign after the percentage sign ) and let's save this file and refresh
+            // the home page and when we refresh the home page we see the name " mario " at the top
+            // of the screen so everything is working as expected
+
+            // however, what we really want to do is pass data into this view and to demostrate this
+            // let's go back to app.js 18 -
+        -->
+
+        <!--
+            // 4 - we cut the nav section from this file and pasted it in the nav.ejs file and
+            // now we can import this section back into this file by using an include function
+            // below and remember we need to include a hyphen after the beginning percentage
+            // sign and inside the include function we have to include a relative path to the
+            // partial file and the code below results in outputting the <nav></nav> html below
+
+            // remember whenever we work with the include method we need to use the hyphen
+            // after the beginning percentage sign
+
+            // and let's save this file and refresh the home page and when we refresh the home
+            // page we see the nav html so everything is working as expected
+
+            // now let's go to the about.ejs file 2 - and replace the <nav></nav> html with
+            // the code below
+        -->
+        <%- include( './partials/nav.ejs' ) %>
+
+        <div class="blogs content">
+
+            <h2>All Blogs</h2>
+            <!--
+                all blogs will go here and this will be where we do the dynamic stuff in this
+                template file and let's save this file and the net ninja will show us how we
+                serve this file to a browser as part of the response object and let's go back
+                to the app.js file 13 - to demostrate this
+            -->
+
+            <!--
+                // 3 - and we are coming from the app.js file and let's output the blogs
+                // from the app.js file below but first let's make sure the length of the blogs
+                // array is greater than 0 and we can check that with an if statement
+                // or " if ( blogs.length > 0 ) {} " and in between the opening and closing
+                // curly braces we want to insert our template ( i.e. the <h3> and <p> tags )
+                // ( see method 1 below ) and for method 1 remember to close off the if statement
+                // with a " } " below the <p> tag so if blogs.length is greater than 0 then we
+                // will output our template ( i.e. the <h3> and <p> tags ) otherwise if
+                // blogs.length is not greater than 0 then we will not output our template
+
+                // method 1:
+                // <%  if ( blogs.length > 0 ) { %>
+                //      <h3></h3>
+                //      <p></p>
+                // <% } %>
+
+                // for method 2, let's iterate through the blogs so first let's replace the <h3>
+                // and <p> tags with " blogs.forEach(); " and then insert our template
+                // ( i.e. the <h3> and <p> tags ) in between the arrow function's opening and
+                // closing curly braces
+
+                // method 2:
+                // <%  if ( blogs.length > 0 ) { %>
+                //      <% blogs.forEach( ( blog ) => { %>
+                //          <h3></h3>
+                //          <p></p
+                //      <% } ) %>
+                // <% } %>
+
+                // from stackoverflow: " forEach: This iterates over a list and applies some
+                // operation with side effects to each list member ( example: saving every list
+                // item to the database )
+
+                // map: This iterates over a list, transforms each member of that list, and
+                // returns another list of the same size with the transformed members
+                // ( example: transforming list of strings to uppercase ) "
+
+                // net ninja said this might look a little complex at first but he said we will
+                // get the hang of it and net ninja said to just
+
+                // now give the <h3> tag and the <p> tag a class name and a value and remember to
+                // include the equals sign inside the EJS opening tag ( i.e. <%= %> ) since we
+                // have to do this whenever we're outputting a dynamic variable
+
+                // and now this should work so let's test this out by going to our home page or
+                // " localhost:3005 " and refresh the page and when we do that we see:
+
+                // "All Blogs
+                
+                // Yoshi finds eggs
+                // Lorem ipsum dolor sit amet ...
+
+                // Mario finds starts
+                // Lorem ipsum dolor sit amet ...
+
+                // How to defeat browser
+                // Lorem ipsum dolor sit amet ..."
+
+                // so everything is working as expected
+
+                // and in the case where there are no blogs, let's add an else statement below
+                // and include a <p> tag that says " There are no blogs to display "
+
+                // and to test this out, let's go to our app.js file and erase the blog posts
+                // and then go to our home page or " localhost:3005 " and refresh the page and
+                // when we do that we see:
+
+                // "All Blogs
+                
+                // There are no blogs to display"
+
+                // so everything is working as expected and the net ninja says this is pretty
+                // simple and we have demostrated how we can pass data into an EJS file or
+                // view and how we can output that same data and how we can add JavaScript
+                // inside EJS tags and thereby add logic to our EJS files or views
+                
+                // so we are now creating dynamic EJS templates with variables and logic
+                // inside the templates but how does this all this work? we'll remember our
+                // view files live on the server and in order to render a view file in the
+                // browser we first have to pass that view file to the EJS view engine and
+                // the view engine converts our template into a valid HTML file and then the
+                // view engine sends that HTML file ( including any data that was inserted into
+                // the file or view ) to the browser and remember this whole process is called
+                // server side rendering
+                
+                // now let's go back to our app.js file 24 -
+            -->
+
+            <!--
+                // 6 -
+                // the net ninja said there are a couple things he wants to do with route
+                // paramters and the first thing the net ninja wants to do is surround our
+                // blog postings with links and each link would point to something like
+                // " /blogs/:id " where " :id " represents the ID of that particular blog
+                // and remember each blog document has an ID property with a cooresponding
+                // value and Mongoose will convert this ID value into a string that we can
+                // use and remember we can access the ID property on each " blog " below 
+
+                // so what we're going to do is wrap the h3 and p tags below with an anchor
+                // tag and the anchor tag is listed below and for now let's save this file
+                // and go the home page in the browser or " localhost:3005/blogs " and let's
+                // test out the links and see what URL we get when we click on a link so if
+                // we click on the first link on the page which points to the third blog
+                // document in the database then we will see the following URL in the browser:
+                // " http://localhost:3005/blogs/5f3c276bee785abad6af553b " and
+                // " 5f3c276bee785abad6af553b " matches the ID of the third blog document so
+                // everything is working as expected
+
+                // so now let's handle this request " /blogs/5f3c276bee785abad6af553b " in the
+                // app.js file and remember this request is a GET request and we need to extract
+                // this route parameter or " 5f3c276bee785abad6af553b " from the URL and we will
+                // do this inside a GET request handler or inside " app.get(); " and to do this
+                // let's go back to the app.js file 57 -
+            -->
+
+            <% if ( blogs.length > 0 ) { %>
+                <% blogs.forEach( ( blog ) => { %>
+
+                    <a class="blogs--single" href="/blogs/<%= blog._id %>">
+                        <h3 class="blogs--title"><%= blog.title %></h3>
+                        <p class="blogs--snippet"><%= blog.snippet %></p>
+                    </a>
+
+                <% } ) %>
+            <% } else { %>
+
+                <p>There are no blogs to display</p>
+
+            <% } %>
+
+        </div>
+
+        <!-- footer partial -->
+        <%- include( './partials/footer.ejs' ) %>
+
+    </body>
+
+</html>
