@@ -896,18 +896,10 @@ const blogRoutes = require( './routes/blogRoutes' );
 const app = express();
 
 
-
 // Brad Schiff said we have to make our port number dynamic in order for our app to work on Heroku
 // so let's add the following below and then remember to change " app.listen( 3005 ) " in
 // mongoose.connect() below to " app.listen( port ) "
-let port = process.env.PORT;
-
-if ( port == null || port == "" ) {
-
-    port = 3005;
-
-}
-
+let port = process.env.PORT || 3005;
 
 
 // 40 -
